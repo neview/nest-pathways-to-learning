@@ -1,6 +1,7 @@
-import { Controller, Param, ParseUUIDPipe, ParseEnumPipe, Get, HttpException, HttpStatus, ParseArrayPipe, ParseFloatPipe, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Param, Post, Body, ParseUUIDPipe, ParseEnumPipe, Get, HttpException, HttpStatus, ParseArrayPipe, ParseFloatPipe, ParseIntPipe, Query, ValidationPipe } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AaaPipe } from './aaa.pipe';
+import { Ooo } from './ooo.dto';
 
 @Controller()
 export class AppController {
@@ -80,5 +81,10 @@ export class AppController {
   nn(@Query('aaa', AaaPipe) aaa: string, @Param('bbb', AaaPipe) bbb: number) {
     // return this.appService.getHello();
     return aaa + bbb;
+  }
+
+  @Post('ooo')
+  ooo(@Body(new ValidationPipe()) obj: Ooo) {
+    console.log(obj)
   }
 }
